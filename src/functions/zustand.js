@@ -7,8 +7,8 @@ const useTheme = create((set) => ({
 }));
 
 const useDisplay = create((set) => ({
-  grouping: "",
-  ordering: "",
+  grouping: "Status",
+  ordering: "Priority",
   setGrouping: (grouping) => set({ grouping }),
   setOrdering: (ordering) => set({ ordering }),
 }));
