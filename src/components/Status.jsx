@@ -84,6 +84,7 @@ function Status(props) {
                 priority={ticket.priority}
                 userId={ticket.userId}
                 users={props.data.users}
+                status={ticket.status}
               />
             </div>
           ))}
@@ -110,6 +111,7 @@ function Status(props) {
                 tag={ticket.tag[0]}
                 priority={ticket.priority}
                 userId={ticket.userId}
+                status={ticket.status}
                 users={props.data.users}
               />
             </div>
@@ -140,6 +142,7 @@ function Status(props) {
                 priority={ticket.priority}
                 userId={ticket.userId}
                 users={props.data.users}
+                status={ticket.status}
               />
             </div>
           ))}
@@ -168,6 +171,7 @@ function Status(props) {
                 tag={ticket.tag[0]}
                 priority={ticket.priority}
                 userId={ticket.userId}
+                status={ticket.status}
                 users={props.data.users}
               />
             </div>
@@ -198,6 +202,7 @@ function Status(props) {
                 priority={ticket.priority}
                 userId={ticket.userId}
                 users={props.data.users}
+                status={ticket.status}
               />
             </div>
           ))}
