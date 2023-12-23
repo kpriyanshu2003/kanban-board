@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDisplay } from "../functions/zustand";
+import { useDisplay, useTheme } from "../functions/zustand";
 import Ticket from "./Ticket";
 
 import { PiDotsThree } from "react-icons/pi";
@@ -18,7 +18,7 @@ function Status(props) {
   });
 
   const ordering = useDisplay((state) => state.ordering);
-
+  const theme = useTheme((state) => state.theme);
   useEffect(() => {
     if (props.data) {
       const sortedData = {
@@ -59,15 +59,19 @@ function Status(props) {
   };
 
   return (
-    <div className="flex">
+    <div className={`flex `}>
       <div className="w-72 mx-2">
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
             <TbCircleDotted />
             <span className="font-medium">Backlog</span>
             <span>{data.backlog.length}</span>
           </div>
-          <div className="flex gap-2 items-center text-gray-700">
+          <div className="flex gap-2 items-center text-gray-200">
             <GoPlus />
             <PiDotsThree />
           </div>
@@ -90,12 +94,16 @@ function Status(props) {
       </div>
       <div className="w-72 mx-2">
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
             <TbCircle />
             <span className="font-medium">ToDo</span>
             <span>{data.todo.length}</span>
           </div>
-          <div className="flex gap-2 items-center text-gray-700">
+          <div className="flex gap-2 items-center text-gray-200">
             <GoPlus />
             <PiDotsThree />
           </div>
@@ -118,14 +126,18 @@ function Status(props) {
       </div>
       <div className="w-72 mx-2">
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
             <span className="text-yellow-300">
               <BiSolidCircleThreeQuarter />
             </span>
             <span className="font-medium">In Progress</span>
             <span>{data.inProgress.length}</span>
           </div>
-          <div className="flex gap-2 items-center text-gray-700">
+          <div className="flex gap-2 items-center text-gray-200">
             <GoPlus />
             <PiDotsThree />
           </div>
@@ -148,14 +160,18 @@ function Status(props) {
       </div>
       <div className="w-72 mx-2">
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
             <span className="text-blue-800">
               <GoCheckCircleFill />
             </span>
             <span className="font-medium">Done</span>
             <span>{data.done.length}</span>
           </div>
-          <div className="flex gap-2 items-center text-gray-700">
+          <div className="flex gap-2 items-center text-gray-200">
             <GoPlus />
             <PiDotsThree />
           </div>
@@ -178,14 +194,18 @@ function Status(props) {
       </div>
       <div className="w-72 mx-2">
         <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
             <span className="text-gray-400">
               <GoXCircleFill />
             </span>
             <span className="font-medium">Cancelled</span>
             <span>{data.cancelled.length}</span>
           </div>
-          <div className="flex gap-2 items-center text-gray-700">
+          <div className="flex gap-2 items-center text-gray-200">
             <GoPlus />
             <PiDotsThree />
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Ticket from "./Ticket";
 import UserAvatar from "./UserAvatar";
-import { useDisplay } from "../functions/zustand";
+import { useDisplay, useTheme } from "../functions/zustand";
 
 import { GoPlus } from "react-icons/go";
 import { PiDotsThree } from "react-icons/pi";
@@ -13,7 +13,7 @@ function User({ data }) {
   });
 
   const ordering = useDisplay((state) => state.ordering);
-
+  const theme = useTheme((state) => state.theme);
   useEffect(() => {
     if (data) {
       setUserData({ data, users: data.users });
@@ -38,12 +38,16 @@ function User({ data }) {
           <div key={user.id} className="flex w-72 mx-3">
             <div>
               <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
+                <div
+                  className={`flex gap-2 items-center ${
+                    theme ? "text-white" : "text-black"
+                  }`}
+                >
                   <UserAvatar user={user} />
                   <span>{user.name}</span>
                   <span>{getTicketCount(user.id)}</span>
                 </div>
-                <div className="flex gap-2 items-center text-gray-700">
+                <div className="flex gap-2 items-center text-gray-200">
                   <GoPlus />
                   <PiDotsThree />
                 </div>

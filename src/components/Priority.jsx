@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useDisplay, useTheme } from "../functions/zustand";
 import Ticket from "./Ticket";
-import { useDisplay } from "../functions/zustand";
+
+import { GoPlus } from "react-icons/go";
+import { PiDotsThree } from "react-icons/pi";
 import { AiOutlineDash } from "react-icons/ai";
 import { BsExclamationSquareFill } from "react-icons/bs";
 import { LuSignalLow, LuSignalMedium, LuSignalHigh } from "react-icons/lu";
@@ -16,7 +19,7 @@ function Priority(props) {
   });
 
   const ordering = useDisplay((state) => state.ordering);
-
+  const theme = useTheme((state) => state.theme);
   useEffect(() => {
     if (props.data) {
       const sortedData = {
@@ -47,9 +50,8 @@ function Priority(props) {
   }, [props.data, ordering]);
 
   const sortTicketsByOrdering = (tickets, priorityLevel) => {
-    if (priorityLevel === "NoPriority") {
-      return tickets;
-    } else {
+    if (priorityLevel === "NoPriority") return tickets;
+    else {
       return tickets.sort((a, b) => {
         if (ordering === "Priority") return a.priority - b.priority;
         else if (ordering === "Title") return a.title.localeCompare(b.title);
@@ -61,10 +63,20 @@ function Priority(props) {
   return (
     <div className="flex">
       <div className="w-72 mx-2">
-        <div className="flex items-center gap-2">
-          <AiOutlineDash className="text-gray-400" />
-          <span className="font-medium">No Priority</span>
-          <span>{data.noPriority.length}</span>
+        <div className="flex items-center justify-between">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
+            <AiOutlineDash className="text-gray-400" />
+            <span className="font-medium">No Priority</span>
+            <span>{data.noPriority.length}</span>
+          </div>
+          <div className="text-gray-400 flex items-center gap-2">
+            <GoPlus />
+            <PiDotsThree />
+          </div>
         </div>
         {data.noPriority.map((ticket, index) => (
           <div key={index}>
@@ -82,10 +94,20 @@ function Priority(props) {
       </div>
 
       <div className="w-72 mx-2">
-        <div className="flex items-center gap-2">
-          <LuSignalLow className="text-gray-400" />
-          <span className="font-medium">Low</span>
-          <span>{data.low.length}</span>
+        <div className="flex items-center justify-between">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
+            <LuSignalLow className="text-gray-400" />
+            <span className="font-medium">Low</span>
+            <span>{data.low.length}</span>
+          </div>
+          <div className="text-gray-400 flex items-center gap-2">
+            <GoPlus />
+            <PiDotsThree />
+          </div>
         </div>
         {data.low.map((ticket, index) => (
           <div key={index}>
@@ -103,10 +125,20 @@ function Priority(props) {
       </div>
 
       <div className="w-72 mx-2">
-        <div className="flex items-center gap-2">
-          <LuSignalMedium className="text-gray-400" />
-          <span className="font-medium">Medium</span>
-          <span>{data.medium.length}</span>
+        <div className="flex items-center justify-between">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
+            <LuSignalMedium className="text-gray-400" />
+            <span className="font-medium">Medium</span>
+            <span>{data.medium.length}</span>
+          </div>
+          <div className="text-gray-400 flex items-center gap-2">
+            <GoPlus />
+            <PiDotsThree />
+          </div>
         </div>
         {data.medium.map((ticket, index) => (
           <div key={index}>
@@ -124,10 +156,20 @@ function Priority(props) {
       </div>
 
       <div className="w-72 mx-2">
-        <div className="flex items-center gap-2">
-          <LuSignalHigh className="text-gray-400" />
-          <span className="font-medium">High</span>
-          <span>{data.high.length}</span>
+        <div className="flex items-center justify-between">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
+            <LuSignalHigh className="text-gray-400" />
+            <span className="font-medium">High</span>
+            <span>{data.high.length}</span>
+          </div>
+          <div className="text-gray-400 flex items-center gap-2">
+            <GoPlus />
+            <PiDotsThree />
+          </div>
         </div>
         {data.high.map((ticket, index) => (
           <div key={index}>
@@ -145,10 +187,20 @@ function Priority(props) {
       </div>
 
       <div className="w-72 mx-2">
-        <div className="flex items-center gap-2">
-          <BsExclamationSquareFill className="text-orange-500" />
-          <span className="font-medium">Urgent</span>
-          <span>{data.urgent.length}</span>
+        <div className="flex items-center justify-between">
+          <div
+            className={`flex gap-2 items-center ${
+              theme ? "text-white" : "text-black"
+            }`}
+          >
+            <BsExclamationSquareFill className="text-orange-400" />
+            <span className="font-medium">No Priority</span>
+            <span>{data.urgent.length}</span>
+          </div>
+          <div className="text-gray-400 flex items-center gap-2">
+            <GoPlus />
+            <PiDotsThree />
+          </div>
         </div>
         {data.urgent.map((ticket, index) => (
           <div key={index}>

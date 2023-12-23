@@ -1,6 +1,6 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import { useDisplay } from "../functions/zustand";
+import { useDisplay, useTheme } from "../functions/zustand";
 
 import { BiSolidCircleThreeQuarter } from "react-icons/bi";
 import { TbCircle, TbCircleDotted } from "react-icons/tb";
@@ -13,6 +13,7 @@ import { PiDotsThree } from "react-icons/pi";
 function Ticket(props) {
   const user = props.users.find((user) => user.id === props.userId);
   const grouping = useDisplay((state) => state.grouping);
+  const theme = useTheme((state) => state.theme);
   const getStatusIcon = () => {
     switch (props.status) {
       case "Backlog":
@@ -54,7 +55,11 @@ function Ticket(props) {
     }
   };
   return (
-    <div className="p-4 border my-4 bg-white rounded-lg">
+    <div
+      className={`p-4 border-[0.5px] my-4 ${
+        theme ? "bg-[#161b22] border-slate-500" : "bg-white"
+      } rounded-lg`}
+    >
       <div className="flex justify-between items-center">
         <span className="uppercase text-[#8d8d8d]">{props.id}</span>
         {grouping !== "User" && (
@@ -64,16 +69,26 @@ function Ticket(props) {
         )}
       </div>
       <div className="font-medium leading-5 my-3 flex gap-1">
-        {grouping !== "Status" && <span>{getStatusIcon()}</span>}
-        <span>{props.title}</span>
+        {grouping !== "Status" && (
+          <span className={theme ? "text-white" : "text-gray-400"}>
+            {getStatusIcon()}
+          </span>
+        )}
+        <span className={theme ? "text-white" : "text-black"}>
+          {props.title}
+        </span>
       </div>
       <div className="flex gap-2">
         {grouping !== "Priority" && (
-          <span className="border p-1 w-6 h-6 flex items-center justify-center">
+          <span
+            className={`border-[0.5px] rounded-md border-slate-500 p-1 w-6 h-6 flex items-center justify-center ${
+              theme ? "text-white" : "text-slate-400"
+            }`}
+          >
             {getPriorityIcon()}
           </span>
         )}
-        <span className="border p-1 h-6 flex gap-2 items-center">
+        <span className="border-[0.1px] p-1 h-6 flex gap-2 items-center rounded-md border-slate-500">
           <div className="rounded-full bg-gray-400 w-3 h-3"></div>
           <span className="text-gray-500 text-sm">{props.tag}</span>
         </span>

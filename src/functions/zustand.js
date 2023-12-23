@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 // false = light, true = dark
 const useTheme = create((set) => ({
-  theme: false,
+  theme: true,
   setTheme: (theme) => set({ theme }),
 }));
 

@@ -20,7 +20,7 @@ function UserAvatar(props) {
 
   return (
     <div
-      className={`rounded-full relative ${backgroundColor} w-5 h-5 grid place-content-center text-white text-[8px] border`}
+      className={`rounded-full relative ${backgroundColor} w-5 h-5 grid place-content-center text-white text-[8px]`}
     >
       {props.user.name
         .split(" ")
