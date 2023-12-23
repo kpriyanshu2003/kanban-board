@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Status from "./Status";
 import { useDisplay } from "../functions/zustand";
+import Status from "./Status";
 import User from "./User";
 import Priority from "./Priority";
+import { fetchData, refreshDataEvery10Minutes } from "../functions/api";
 
 function Main() {
   const grouping = useDisplay((state) => state.grouping);
   const [data, setData] = useState();
+
   useEffect(() => {
-    fetch(
-      "https://tfyincvdrafxe7ut2ziwuhe5cm0xvsdu.lambda-url.ap-south-1.on.aws/ticketAndUsers"
-    )
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    fetchData()
+      .then((initialData) => {
+        setData(initialData);
+        refreshDataEvery10Minutes(setData);
+      })
+      .catch((error) => {
+        console.error("Error setting or refreshing data:", error);
+      });
   }, []);
 
   return (
