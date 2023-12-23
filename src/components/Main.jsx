@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDisplay } from "../functions/zustand";
-import Status from "./Status";
-import User from "./User";
-import Priority from "./Priority";
 import { fetchData, refreshDataEvery10Minutes } from "../functions/api";
+
+import User from "./User";
+import Status from "./Status";
+import Priority from "./Priority";
 
 function Main() {
   const grouping = useDisplay((state) => state.grouping);

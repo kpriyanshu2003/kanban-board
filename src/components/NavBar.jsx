@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useTheme, useDisplay } from "../functions/zustand";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
+
 import { GiSettingsKnobs } from "react-icons/gi";
 import { GoChevronDown } from "react-icons/go";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 function NavBar() {
   const theme = useTheme((state) => state.theme);

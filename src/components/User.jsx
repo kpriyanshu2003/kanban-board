@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Ticket from "./Ticket";
 import UserAvatar from "./UserAvatar";
+import { useDisplay } from "../functions/zustand";
+
 import { GoPlus } from "react-icons/go";
 import { PiDotsThree } from "react-icons/pi";
-import Ticket from "./Ticket";
-import { useDisplay } from "../functions/zustand";
 
 function User({ data }) {
   const [userData, setUserData] = useState({
@@ -11,7 +12,6 @@ function User({ data }) {
     users: [],
   });
 
-  // Use the ordering value from useDisplay hook
   const ordering = useDisplay((state) => state.ordering);
 
   useEffect(() => {
@@ -21,7 +21,6 @@ function User({ data }) {
   }, [data]);
 
   const sortTickets = (userTickets) => {
-    // Ensure you create a copy of the array before sorting
     return [...userTickets].sort((a, b) => {
       if (ordering === "Priority") {
         return a.priority - b.priority;

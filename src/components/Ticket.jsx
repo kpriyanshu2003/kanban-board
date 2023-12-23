@@ -1,17 +1,14 @@
 import React from "react";
 import UserAvatar from "./UserAvatar";
-import { TbCircle } from "react-icons/tb";
+import { useDisplay } from "../functions/zustand";
+
 import { BiSolidCircleThreeQuarter } from "react-icons/bi";
-import { TbCircleDotted } from "react-icons/tb";
-import { GoCheckCircleFill } from "react-icons/go";
-import { GoXCircleFill } from "react-icons/go";
-import { LuSignalLow } from "react-icons/lu";
-import { LuSignalMedium } from "react-icons/lu";
-import { LuSignalHigh } from "react-icons/lu";
+import { TbCircle, TbCircleDotted } from "react-icons/tb";
+import { GoXCircleFill, GoCheckCircleFill } from "react-icons/go";
+import { LuSignalMedium, LuSignalLow, LuSignalHigh } from "react-icons/lu";
 import { BsExclamationSquareFill } from "react-icons/bs";
 import { AiOutlineDash } from "react-icons/ai";
 import { PiDotsThree } from "react-icons/pi";
-import { useDisplay } from "../functions/zustand";
 
 function Ticket(props) {
   const user = props.users.find((user) => user.id === props.userId);

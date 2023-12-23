@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TbCircleDotted } from "react-icons/tb";
-import { GoPlus } from "react-icons/go";
-import { PiDotsThree } from "react-icons/pi";
-import Ticket from "./Ticket";
-import { TbCircle } from "react-icons/tb";
-import { BiSolidCircleThreeQuarter } from "react-icons/bi";
-import { GoCheckCircleFill } from "react-icons/go";
-import { GoXCircleFill } from "react-icons/go";
 import { useDisplay } from "../functions/zustand";
+import Ticket from "./Ticket";
+
+import { PiDotsThree } from "react-icons/pi";
+import { TbCircleDotted, TbCircle } from "react-icons/tb";
+import { BiSolidCircleThreeQuarter } from "react-icons/bi";
+import { GoCheckCircleFill, GoXCircleFill, GoPlus } from "react-icons/go";
 
 function Status(props) {
   const [data, setData] = useState({

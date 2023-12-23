@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import Ticket from "./Ticket";
 import { useDisplay } from "../functions/zustand";
 import { AiOutlineDash } from "react-icons/ai";
-import { LuSignalLow } from "react-icons/lu";
-import { LuSignalMedium } from "react-icons/lu";
-import { LuSignalHigh } from "react-icons/lu";
 import { BsExclamationSquareFill } from "react-icons/bs";
+import { LuSignalLow, LuSignalMedium, LuSignalHigh } from "react-icons/lu";
 
 function Priority(props) {
   const [data, setData] = useState({
