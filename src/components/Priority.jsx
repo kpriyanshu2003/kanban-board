@@ -148,7 +148,7 @@ function Priority(props) {
 
       <div className="w-72 mx-2">
         <div className="flex items-center gap-2">
-          <BsExclamationSquareFill className="text-yellow-500" />
+          <BsExclamationSquareFill className="text-orange-500" />
           <span className="font-medium">Urgent</span>
           <span>{data.urgent.length}</span>
         </div>
