@@ -43,8 +43,6 @@
 
    - POST /register : To create account
    - POST /sign in : To login
-   - GET /verify : In protected route to ensure safety ( header : user token )
-   - DELETE /remove : Delete the user, along with their tasks ( header : user token )
 
 2. Tasks ( header : user token )
 
@@ -73,5 +71,5 @@ title : string, required
 description : string, optional
 status: To Do, In Progress, Completed
 priority: Low, Medium, High
-Due Date: date, optionalWebApp: Kanban board with Table
+Due Date: date, optional
 ```
