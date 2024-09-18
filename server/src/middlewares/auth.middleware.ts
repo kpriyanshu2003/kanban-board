@@ -1,18 +1,26 @@
-const jwt = require("jsonwebtoken");
+import { verifyToken } from "../utils/JWT";
+import { NextFunction, Response } from "express";
+import { ApiResponse } from "../utils/ApiResponse";
+import { CustomRequest } from "../@types/index.types";
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.header("Authorization");
-
   if (!token)
-    return res.status(401).json({ msg: "No token, authorization denied" });
+    return res.send(new ApiResponse(401, "No token, authorization denied"));
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.id;
+    const decoded = verifyToken(token);
+    if (typeof decoded === "string")
+      return res.send(new ApiResponse(401, decoded));
+    else req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ msg: "Invalid token" });
+    res.send(new ApiResponse(401, "Invalid token"));
   }
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

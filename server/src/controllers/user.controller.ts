@@ -3,7 +3,6 @@ import User from "../models/user.models";
 import { asyncHandler } from "../utils/AsyncHandler";
 import { generateToken } from "../utils/JWT";
 import { ApiResponse } from "../utils/ApiResponse";
-import mongoose from "mongoose";
 
 const registerUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;

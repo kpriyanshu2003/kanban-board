@@ -5,8 +5,6 @@ import { UserJwtPayload } from "../@types/index.types";
 config();
 const jwt_secret = process.env.JWT_SECRET || "jwt_secret";
 
-// TODO : JsDoc
-
 /**
  * Generate JWT token.
  * @param {UserJwtPayload} payload - The data to encode in the JWT token.

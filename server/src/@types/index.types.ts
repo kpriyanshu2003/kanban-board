@@ -19,3 +19,7 @@ export interface UserJwtPayload extends JwtPayload {
   id: mongoose.Types.ObjectId;
   email: string;
 }
+
+export interface CustomRequest extends Request {
+  user?: string | UserJwtPayload;
+}

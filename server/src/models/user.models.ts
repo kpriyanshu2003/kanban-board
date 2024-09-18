@@ -6,7 +6,6 @@ const UserSchema = new Schema<IUser>(
   {
     email: { type: String, required: true, trim: true, unique: true },
     password: { type: String, required: true },
-    token: { type: String },
     task: [{ type: Schema.Types.ObjectId, ref: "Task" }],
   },
   { timestamps: true }
