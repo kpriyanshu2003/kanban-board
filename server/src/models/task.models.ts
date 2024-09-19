@@ -1,8 +1,9 @@
 import mongoose, { Schema } from "mongoose";
+import { Task, TaskPriority, TaskStatus } from "../@types/task.types";
 
 const TaskSchema = new Schema<Task>(
   {
-    userId: { type: Number, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
     title: { type: String, required: true },
     description: { type: String },
     status: {

@@ -3,12 +3,9 @@ import { NextFunction, Response } from "express";
 import { ApiResponse } from "../utils/ApiResponse";
 import { CustomRequest } from "../@types/index.types";
 
-const authMiddleware = (
-  req: CustomRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  const token = req.header("Authorization");
+const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
+  const token = req.header("Authorization")?.split(" ")[1];
+
   if (!token)
     return res.send(new ApiResponse(401, "No token, authorization denied"));
 
@@ -23,4 +20,4 @@ const authMiddleware = (
   }
 };
 
-export default authMiddleware;
+export default auth;

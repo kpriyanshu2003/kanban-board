@@ -1,5 +1,7 @@
-interface Task {
-  userId: number;
+import { Types } from "mongoose";
+
+export interface Task {
+  userId: Types.ObjectId;
   title: string;
   description: string | null;
   status: TaskStatus;
@@ -7,13 +9,13 @@ interface Task {
   dueDate: Date | null;
 }
 
-enum TaskStatus {
+export enum TaskStatus {
   ToDo = "To Do",
   InProgress = "In Progress",
   Completed = "Completed",
 }
 
-enum TaskPriority {
+export enum TaskPriority {
   Low = "Low",
   Medium = "Medium",
   High = "High",

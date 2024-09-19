@@ -21,5 +21,5 @@ export interface UserJwtPayload extends JwtPayload {
 }
 
 export interface CustomRequest extends Request {
-  user?: string | UserJwtPayload;
+  user?: UserJwtPayload;
 }
