@@ -1,9 +1,9 @@
+"use server";
 import api from ".";
-// import { loginValidator, signupValidator } from "@/lib/auth";
 
-const register = async (email: string, password: string) => {
+export async function register(formData: string) {
+  const { email, password } = JSON.parse(formData);
   try {
-    // signupValidator(formData);
     const response = await fetch(api + "/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -16,11 +16,10 @@ const register = async (email: string, password: string) => {
     console.log(e);
     throw new Error(e.message);
   }
-};
-
-const login = async (email: string, password: string) => {
+}
+export async function login(formData: string) {
+  const { email, password } = JSON.parse(formData);
   try {
-    // loginValidator(email, password);
     const response = await fetch(api + "/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,6 +31,4 @@ const login = async (email: string, password: string) => {
     console.log(e);
     throw new Error(e.message);
   }
-};
-
-export { register, login };
+}

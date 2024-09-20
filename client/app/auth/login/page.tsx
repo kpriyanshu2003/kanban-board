@@ -24,18 +24,19 @@ function Page() {
       return toast.error("Please fill all fields");
 
     setLoading(true);
-    login(formData.email, formData.password)
+    login(
+      JSON.stringify({ email: formData.email, password: formData.password })
+    )
       .then((res) => {
         if (!res.success) throw new Error(res.message);
 
         toast.success("Login successful. Redirecting...");
+        console.log(res.data.token);
         document.cookie = `token=${res.data.token}; path=/; expires=${new Date(
           Date.now() + 1000 * 60 * 60 * 24 * 7
         )}`;
+        setTimeout(() => router.push(redirectParams || "/kanban"), 1500);
       })
-      .then(() =>
-        setTimeout(() => router.push(redirectParams || "/kanban"), 1500)
-      )
       .catch((err) => {
         console.log(err);
         toast.error(err.message);

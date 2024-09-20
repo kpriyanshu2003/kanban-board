@@ -31,7 +31,9 @@ function Page() {
 
     setLoading(true);
 
-    register(formData.email, formData.password)
+    register(
+      JSON.stringify({ email: formData.email, password: formData.password })
+    )
       .then((res) => {
         if (!res.success) throw new Error(res.message);
 

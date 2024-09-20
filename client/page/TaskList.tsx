@@ -1,7 +1,17 @@
 import React from "react";
+import List from "@/components/Task/List";
+import Filter from "@/components/Task/Filter";
+import Sort from "@/components/Task/Sort";
 
-function TaskList() {
-  return <div>TaskList</div>;
+async function TaskList() {
+  return (
+    <>
+      <h1 className="text-2xl font-bold">Task List</h1>
+      <Filter />
+      <Sort />
+      <List />
+    </>
+  );
 }
 
 export default TaskList;

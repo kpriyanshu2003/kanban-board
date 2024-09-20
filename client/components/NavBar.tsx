@@ -1,72 +1,79 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { NavItems, NavSettings } from "@/constants/NavBar";
 import {
   TbLayoutSidebarLeftCollapseFilled,
   TbLayoutSidebarRightCollapseFilled,
+  TbLogout,
 } from "react-icons/tb";
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { NavItems } from "@/constants/NavBar";
+import { toggleSidebar } from "../redux/features/sidebar/sidebarSlice";
 
 function NavBar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
+  const collapsed = useSelector((state: RootState) => state.sidebar.collapsed);
+
   return (
     <div
-      className={classNames(
-        "h-screen fixed border-r transition-all duration-500 bg-white",
-        collapsed ? "w-16 " : "w-64"
-      )}
+      className={cn("transition-all duration-500", collapsed ? "w-24" : "w-72")}
     >
-      <Link
-        href="/kanban"
-        className="block p-3 cursor-pointer py-5 font-semibold text-2xl text-center"
-      >
-        {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
-      </Link>
-      <div className="mt-5">
-        {NavItems.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center"
-          >
-            {item.logo}
-            {!collapsed && <span className="pl-4">{item.name}</span>}
-          </Link>
-        ))}
-      </div>
       <div
-        className={classNames(
-          "absolute bottom-5 w-full items-center justify-center flex",
-          collapsed ? "flex-col" : "flex-row"
+        className={cn(
+          "h-screen fixed border-r transition-all duration-500 bg-white",
+          collapsed ? "w-16 " : "w-64"
         )}
       >
-        {NavSettings.map((item) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={classNames(
-              "hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center w-full"
-            )}
-          >
-            {item.logo}
-            {!collapsed && <span>{item.name}</span>}
-          </Link>
-        ))}
-
+        <Link
+          href="/kanban"
+          className="block p-3 cursor-pointer py-5 font-semibold text-2xl text-center"
+        >
+          {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
+        </Link>
+        <div className="mt-5">
+          {NavItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center"
+            >
+              {item.logo}
+              {!collapsed && <span className="pl-4">{item.name}</span>}
+            </Link>
+          ))}
+        </div>
         <div
-          onClick={() => setCollapsed(!collapsed)}
-          className={classNames(
-            "cursor-pointer p-4 ",
-            collapsed && "hover:bg-slate-100 w-full"
+          className={cn(
+            "absolute bottom-5 w-full items-center justify-center flex",
+            collapsed ? "flex-col" : "flex-row"
           )}
         >
-          {collapsed ? (
-            <TbLayoutSidebarRightCollapseFilled className="w-5 h-5" />
-          ) : (
-            <TbLayoutSidebarLeftCollapseFilled className="w-5 h-5" />
-          )}
+          <Link
+            href="/auth/logout"
+            className={cn(
+              "hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium w-full flex items-center",
+              collapsed && "justify-center"
+            )}
+          >
+            <TbLogout className="h-6 w-6" />
+            {!collapsed && <span className="pl-4">Logout</span>}
+          </Link>
+          <div
+            onClick={() => dispatch(toggleSidebar())}
+            className={cn(
+              "cursor-pointer p-4 hover:bg-slate-100 duration-500 grid place-items-center",
+              collapsed && " w-full"
+            )}
+          >
+            {collapsed ? (
+              <TbLayoutSidebarRightCollapseFilled className="w-5 h-5" />
+            ) : (
+              <TbLayoutSidebarLeftCollapseFilled className="w-5 h-5" />
+            )}
+          </div>
         </div>
       </div>
     </div>

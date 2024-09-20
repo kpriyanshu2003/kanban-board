@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "@/components/NavBar";
 import TaskList from "@/page/TaskList";
 import Kanban from "@/page/Kanban";
+// import Editor from "@/components/Editor";
 
 function Page({ params }: { params: { id: string } }) {
   const pageComponents: { [key: string]: JSX.Element | string } = {
@@ -16,9 +17,8 @@ function Page({ params }: { params: { id: string } }) {
   return (
     <div className="flex bg-gray-50 min-h-screen">
       {showNavBar && <NavBar />}
-      <div className={showNavBar ? "w-full ml-72 pt-10 " : "w-full"}>
-        {renderPage()}
-      </div>
+      <div className="mx-4 my-8">{renderPage()}</div>
+      {/* <Editor /> */}
     </div>
   );
 }
