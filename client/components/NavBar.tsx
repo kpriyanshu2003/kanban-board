@@ -47,14 +47,15 @@ function NavBar() {
               {!collapsed && <span className="pl-4">{item.name}</span>}
             </Link>
           ))}
-          <div className="px-3 w-full my-2">
+
+          <div className="px-3 w-full my-2 flex items-center">
             <Button
               className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center w-full"
               variant="secondary"
               onClick={() => dispatch(setCurrent("create"))}
             >
               <MdCreate />
-              Create Task
+              {!collapsed && <span>Create Task</span>}
             </Button>
           </div>
         </div>

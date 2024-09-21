@@ -44,8 +44,9 @@ function List() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
+
   return (
-    <Table className="">
+    <Table className="w-full">
       <TableHeader>
         <TableRow>
           <TableHead className="text-lg whitespace-nowrap w-2/6">
@@ -88,9 +89,9 @@ function List() {
             }
             return 0;
           })
-          .sort(() => {
-            if (sort.order === "asc") return -1;
-            if (sort.order === "desc") return 1;
+          .sort((a, b) => {
+            if (sort.order === "asc") return 1;
+            if (sort.order === "desc") return -1;
             return 0;
           })
           .map((task) => (

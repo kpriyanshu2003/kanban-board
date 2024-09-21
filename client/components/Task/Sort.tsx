@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { setFilter } from "@/redux/features/task/taskSlice";
+import { setSort } from "@/redux/features/task/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
@@ -20,7 +20,7 @@ function Sort() {
   return (
     <div className="my-5 flex gap-5">
       <Select
-        onValueChange={(e) => dispatch(setFilter({ ...sort, key: e }))}
+        onValueChange={(e) => dispatch(setSort({ ...sort, key: e }))}
         defaultValue={sort.key}
       >
         <SelectTrigger className="w-[180px]">
@@ -37,7 +37,7 @@ function Sort() {
       </Select>
 
       <Select
-        onValueChange={(e) => dispatch(setFilter({ ...sort, order: e }))}
+        onValueChange={(e) => dispatch(setSort({ ...sort, order: e }))}
         defaultValue={sort.order}
       >
         <SelectTrigger className="w-[180px]">

@@ -67,7 +67,7 @@ function Editor() {
       createTask(formData)
         .then(() => {
           toast.success("Task created successfully");
-          dispatch(setCurrent(null));
+          handleClose();
         })
         .catch((err) => {
           toast.error(err.message);
@@ -75,10 +75,10 @@ function Editor() {
         });
     } else {
       updateTask(formData)
-        .then(() => [
-          toast.success("Task updated successfully"),
-          dispatch(setCurrent(null)),
-        ])
+        .then(() => {
+          toast.success("Task updated successfully");
+          handleClose();
+        })
         .catch((err) => {
           toast.error(err.message);
           console.error(err);
@@ -91,7 +91,7 @@ function Editor() {
       deleteTask(task._id)
         .then(() => {
           toast.success("Task deleted successfully");
-          dispatch(setCurrent(null));
+          handleClose();
         })
         .catch((err) => {
           toast.error(err.message);
@@ -99,6 +99,20 @@ function Editor() {
         });
   };
 
+  const handleClose = () => {
+    setFormData({
+      _id: "",
+      title: "",
+      description: "",
+      status: TaskStatus.ToDo,
+      priority: TaskPriority.Low,
+      dueDate: null,
+      userId: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    dispatch(setCurrent(null));
+  };
   return (
     <>
       {task && (

@@ -20,6 +20,7 @@ function Filter() {
   return (
     <div className="my-5 flex gap-5">
       <Select
+        defaultValue={filter.status}
         onValueChange={(e) => dispatch(setFilter({ ...filter, status: e }))}
       >
         <SelectTrigger className="w-[180px]">
@@ -36,6 +37,7 @@ function Filter() {
       </Select>
 
       <Select
+        defaultValue={filter.priority}
         onValueChange={(e) => dispatch(setFilter({ ...filter, priority: e }))}
       >
         <SelectTrigger className="w-[180px]">
