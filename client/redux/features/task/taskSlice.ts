@@ -8,7 +8,7 @@ interface TaskInitialState {
     key: "Any" | "Status" | "Priority" | "Due Date";
     order: "asc" | "desc";
   };
-  current: Task | null;
+  current: Task | "create" | null;
   kanbanView: "Status" | "Priority";
 }
 
@@ -45,8 +45,7 @@ export const taskSlice = createSlice({
       state.sort = action.payload;
     },
     setCurrent: (state, action) => {
-      state.current =
-        state.tasks.find((task) => task._id === action.payload) || null;
+      state.current = action.payload;
     },
     setKanbanView: (state, action) => {
       state.kanbanView = action.payload;

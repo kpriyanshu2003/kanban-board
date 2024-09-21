@@ -23,9 +23,13 @@ import {
 } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setCurrent } from "@/redux/features/task/taskSlice";
 
 function Editor() {
-  const [date, setDate] = useState<Date>();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState<Task>({
     _id: "",
     title: "",
@@ -38,17 +42,23 @@ function Editor() {
     updatedAt: new Date(),
   });
 
+  const task = useSelector((state: RootState) => state.task.current);
   useEffect(() => {
-    console.log("Hi");
-  }, []);
+    task && task !== "create" && setFormData(task as Task);
+  }, [task]);
 
   return (
     <>
-      {
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg w-[80%] h-[90%] p-6 bg-white">
+      {task && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg w-[600px] p-6 bg-white">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-bold">Create / Edit Task</h1>
-            <IoCloseCircleOutline className="w-6 h-6" />
+            <h1 className="text-2xl font-bold">
+              {task === "create" ? "Create" : "Update"}
+            </h1>
+            <IoCloseCircleOutline
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => dispatch(setCurrent(null))}
+            />
           </div>
           <div className="mt-8">
             <div className="grid gap-1.5 text-left my-4">
@@ -79,7 +89,10 @@ function Editor() {
               <div className="grid gap-1.5 text-left my-4 w-full">
                 <Label htmlFor="status">Status</Label>
                 <Select
-                  onValueChange={(e) => setFormData({ ...formData, status: e })}
+                  defaultValue={formData.status}
+                  onValueChange={(e) =>
+                    setFormData({ ...formData, status: e as TaskStatus })
+                  }
                 >
                   <SelectTrigger className="w-full" id="status">
                     <SelectValue placeholder="Task Status" />
@@ -96,8 +109,9 @@ function Editor() {
               <div className="grid gap-1.5 text-left my-4 w-full">
                 <Label htmlFor="priority">Priority</Label>
                 <Select
+                  defaultValue={formData.priority}
                   onValueChange={(e) =>
-                    setFormData({ ...formData, priority: e })
+                    setFormData({ ...formData, priority: e as TaskPriority })
                   }
                 >
                   <SelectTrigger className="w-full" id="priority">
@@ -122,26 +136,35 @@ function Editor() {
                     variant={"outline"}
                     className={cn(
                       "w-[240px] justify-start text-left font-normal bg-transparent",
-                      !date && "text-muted-foreground"
+                      !formData.dueDate && "text-muted-foreground"
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    {formData.dueDate ? (
+                      format(formData.dueDate, "PPP")
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
-                    selected={date}
-                    onSelect={setDate}
+                    selected={formData.dueDate as Date}
+                    onSelect={(date) =>
+                      setFormData({ ...formData, dueDate: date || null })
+                    }
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
             </div>
           </div>
+          <div className="text-right">
+            <Button>{task === "create" ? "Create Task" : "Update Task"}</Button>
+          </div>
         </div>
-      }
+      )}
     </>
   );
 }

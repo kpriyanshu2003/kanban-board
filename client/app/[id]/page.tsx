@@ -3,6 +3,7 @@ import NavBar from "@/components/NavBar";
 import TaskList from "@/page/TaskList";
 import Kanban from "@/page/Kanban";
 import Editor from "@/components/Editor";
+import Overlay from "@/components/Overlay";
 
 function Page({ params }: { params: { id: string } }) {
   const pageComponents: { [key: string]: JSX.Element | string } = {
@@ -17,8 +18,9 @@ function Page({ params }: { params: { id: string } }) {
   return (
     <div className="flex bg-gray-50 h-screen overflow-hidden">
       {showNavBar && <NavBar />}
+      <Overlay />
       <div className="mx-4 py-8">{renderPage()}</div>
-      {/* <Editor /> */}
+      <Editor />
     </div>
   );
 }

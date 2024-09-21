@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { getTasks } from "@/actions/task";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setTasks } from "@/redux/features/task/taskSlice";
+import { setCurrent, setTasks } from "@/redux/features/task/taskSlice";
 
 import {
   Table,
@@ -44,7 +44,6 @@ function List() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
   return (
     <Table className="">
       <TableHeader>
@@ -97,12 +96,10 @@ function List() {
           .map((task) => (
             <TableRow
               key={task._id}
-              className="my-5"
-              onClick={() => toast("title" + task._id)}
+              className="my-5 cursor-pointer"
+              onClick={() => dispatch(setCurrent(task))}
             >
-              <TableCell className="font-medium cursor-pointer">
-                {task.title}
-              </TableCell>
+              <TableCell className="font-medium">{task.title}</TableCell>
               <TableCell>{task.description}</TableCell>
               <TableCell>{task.status}</TableCell>
               <TableCell>{task.priority}</TableCell>
