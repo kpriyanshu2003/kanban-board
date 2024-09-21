@@ -51,7 +51,7 @@ function Editor() {
     description: "",
     status: TaskStatus.ToDo,
     priority: TaskPriority.Low,
-    dueDate: new Date(),
+    dueDate: null,
     userId: "",
     createdAt: new Date(),
     updatedAt: new Date(),

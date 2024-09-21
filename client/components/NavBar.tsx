@@ -12,6 +12,9 @@ import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { NavItems } from "@/constants/NavBar";
 import { toggleSidebar } from "../redux/features/sidebar/sidebarSlice";
+import { MdCreate } from "react-icons/md";
+import { Button } from "./ui/button";
+import { setCurrent } from "@/redux/features/task/taskSlice";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -33,17 +36,27 @@ function NavBar() {
         >
           {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
         </Link>
-        <div className="mt-5">
+        <div className="mt-5 grid place-items-center">
           {NavItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center"
+              className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center w-full"
             >
               {item.logo}
               {!collapsed && <span className="pl-4">{item.name}</span>}
             </Link>
           ))}
+          <div className="px-3 w-full my-2">
+            <Button
+              className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center w-full"
+              variant="secondary"
+              onClick={() => dispatch(setCurrent("create"))}
+            >
+              <MdCreate />
+              Create Task
+            </Button>
+          </div>
         </div>
         <div
           className={cn(
