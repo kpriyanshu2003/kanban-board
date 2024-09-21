@@ -1,7 +1,7 @@
 import { ReactNode, useMemo } from "react";
 import { Button } from "../ui/button";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical } from "lucide-react";
+import { LuGrip } from "react-icons/lu";
 import { cva } from "class-variance-authority";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { Card, CardContent, CardHeader } from "../ui/card";
@@ -60,13 +60,12 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
           {...listeners}
           className=" p-1 text-primary/50 -ml-2 h-auto cursor-grab relative"
         >
-          <span className="sr-only">{`Move column: ${column}`}</span>
-          <GripVertical />
+          <LuGrip className="w-6 h-6" />
         </Button>
-        <span className="ml-auto"> {column}</span>
+        <span className="ml-auto font-bold">{column}</span>
       </CardHeader>
       <ScrollArea>
-        <CardContent className="flex flex-grow flex-col gap-2 p-2">
+        <CardContent className="flex flex-grow flex-col gap-2 p-4">
           <SortableContext items={tasksIds}>
             {tasks.map((task) => (
               <TaskCard key={task._id} task={task} />

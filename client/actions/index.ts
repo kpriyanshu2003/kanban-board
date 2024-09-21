@@ -3,7 +3,7 @@
  * If the environment variable BASE_URL is set, it will be used as the base URL.
  * Otherwise, it will default to an empty string.
  */
-const apiBaseUrl: string = process.env.BASE_URL || "";
+const apiBaseUrl: string = process.env.BASE_URL || "http://localhost:3300";
 
 /**
  * The complete API URL.
@@ -11,7 +11,7 @@ const apiBaseUrl: string = process.env.BASE_URL || "";
 const apiUrl: string = apiBaseUrl + "/api";
 
 /**
- * Fetches data from the API with an interceptor.
+ * Fetches data from the API with an interceptor. Added for further enhancements.
  * @param url The URL to fetch data from.
  * @param options The options for the fetch request.
  * @returns A Promise that resolves to the fetch response.

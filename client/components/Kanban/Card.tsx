@@ -1,11 +1,14 @@
 import { Badge } from "../ui/badge";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical } from "lucide-react";
+import { LuGrip } from "react-icons/lu";
 import { cva } from "class-variance-authority";
 import { Button } from "@/components/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { TaskCardProps, TaskDragData } from "@/@types/kanban";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrent } from "@/redux/features/task/taskSlice";
+import { RootState } from "@/redux/store";
 
 export function TaskCard({ task, isOverlay }: TaskCardProps) {
   const {
@@ -35,6 +38,9 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
     },
   });
 
+  const dispatch = useDispatch();
+  const view = useSelector((state: RootState) => state.task.kanbanView);
+
   return (
     <Card
       ref={setNodeRef}
@@ -42,23 +48,23 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
       className={variants({
         dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
       })}
+      onClick={() => dispatch(setCurrent(task))}
     >
-      <CardHeader className="px-3 py-3 space-between flex flex-row border-b-2 border-secondary relative">
+      <CardHeader className="px-2 py-2 space-between flex flex-row border-b-2 border-secondary relative items-center cursor-pointer">
         <Button
           variant={"ghost"}
           {...attributes}
           {...listeners}
-          className="p-1 text-secondary-foreground/50 -ml-2 h-auto cursor-grab"
+          className="p-2 text-secondary-foreground/50 h-auto cursor-grab"
         >
-          <span className="sr-only">Move task</span>
-          <GripVertical />
+          <LuGrip className="w-4 h-4" />
         </Button>
         <Badge variant={"outline"} className="ml-auto font-semibold">
-          Task
+          {view === "Status" ? task.status : task.priority}
         </Badge>
       </CardHeader>
       <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
-        {task.title}
+        {task.title.length > 32 ? task.title.slice(0, 32) + "..." : task.title}
       </CardContent>
     </Card>
   );

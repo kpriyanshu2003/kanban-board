@@ -26,6 +26,21 @@ import { cn } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setCurrent } from "@/redux/features/task/taskSlice";
+import { createTask, deleteTask, updateTask } from "@/actions/task";
+import { toast } from "sonner";
+import { MdDelete } from "react-icons/md";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 function Editor() {
   const dispatch = useDispatch();
@@ -47,19 +62,57 @@ function Editor() {
     task && task !== "create" && setFormData(task as Task);
   }, [task]);
 
+  const handleSubmit = () => {
+    if (task === "create") {
+      createTask(formData)
+        .then(() => {
+          toast.success("Task created successfully");
+          dispatch(setCurrent(null));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+          console.error(err);
+        });
+    } else {
+      updateTask(formData)
+        .then(() => [
+          toast.success("Task updated successfully"),
+          dispatch(setCurrent(null)),
+        ])
+        .catch((err) => {
+          toast.error(err.message);
+          console.error(err);
+        });
+    }
+  };
+
+  const handleDelete = () => {
+    if (task !== "create" && task)
+      deleteTask(task._id)
+        .then(() => {
+          toast.success("Task deleted successfully");
+          dispatch(setCurrent(null));
+        })
+        .catch((err) => {
+          toast.error(err.message);
+          console.error(err);
+        });
+  };
+
   return (
     <>
       {task && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg w-[600px] p-6 bg-white">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-bold">
-              {task === "create" ? "Create" : "Update"}
+              {task === "create" ? "Create" : "Update"} Task
             </h1>
             <IoCloseCircleOutline
               className="w-6 h-6 cursor-pointer"
               onClick={() => dispatch(setCurrent(null))}
             />
           </div>
+
           <div className="mt-8">
             <div className="grid gap-1.5 text-left my-4">
               <Label htmlFor="title">Title</Label>
@@ -75,14 +128,15 @@ function Editor() {
             </div>
             <div className="grid gap-1.5 text-left my-4">
               <Label htmlFor="description">Description</Label>
-              <Input
-                type="text"
-                id="description"
-                placeholder="Description"
+              <Textarea
+                placeholder="Type your message here."
+                className="resize-none"
                 value={formData.description as string}
                 onChange={(e) =>
                   setFormData({ ...formData, description: e.target.value })
                 }
+                maxLength={200}
+                rows={5}
               />
             </div>
             <div className="flex items-center gap-5 my-4">
@@ -160,8 +214,37 @@ function Editor() {
               </Popover>
             </div>
           </div>
-          <div className="text-right">
-            <Button>{task === "create" ? "Create Task" : "Update Task"}</Button>
+
+          <div className="flex justify-end gap-2 items-center w-full">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="hover:bg-red-300 h-10 w-10"
+                >
+                  <MdDelete className="w-5 h-5 absolute" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => handleDelete()}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+            <Button onClick={() => handleSubmit()} className="h-10">
+              {task === "create" ? "Create Task" : "Update Task"}
+            </Button>
           </div>
         </div>
       )}

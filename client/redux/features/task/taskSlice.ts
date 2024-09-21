@@ -24,17 +24,6 @@ export const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    addTask: (state, action) => {
-      state.tasks.push({
-        _id: nanoid(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        ...action.payload,
-      });
-    },
-    removeTask: (state, action) => {
-      state.tasks.filter((task) => task._id !== action.payload);
-    },
     setTasks: (state, action) => {
       state.tasks = action.payload;
     },
@@ -53,13 +42,6 @@ export const taskSlice = createSlice({
   },
 });
 
-export const {
-  addTask,
-  removeTask,
-  setTasks,
-  setFilter,
-  setSort,
-  setCurrent,
-  setKanbanView,
-} = taskSlice.actions;
+export const { setTasks, setFilter, setSort, setCurrent, setKanbanView } =
+  taskSlice.actions;
 export default taskSlice.reducer;

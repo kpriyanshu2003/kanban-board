@@ -148,6 +148,7 @@ export function KanbanBoard() {
     const isOverAColumn = overData?.type === "Column";
 
     // Handle task over task (reorder)
+    // TODO : add an api call to update the task order
     if (isActiveATask && isOverATask) {
       const activeIndex = tasks.findIndex((t) => t._id === activeId);
       const overIndex = tasks.findIndex((t) => t._id === overId);
@@ -178,6 +179,7 @@ export function KanbanBoard() {
     }
 
     // Handle task over column (change task status or priority based on the view)
+    // TODO : add an api call to update the task status or priority
     if (isActiveATask && isOverAColumn) {
       let tempTask: Task;
       const activeIndex = tasks.findIndex((t) => t._id === activeId);

@@ -9,7 +9,7 @@ function Overlay() {
   return (
     <>
       {task && (
-        <div className="absolute z-20 h-screen w-screen overflow-hidden bg-[#00000050] pointer-events-auto cursor-default"></div>
+        <div className="absolute z-20 h-screen w-screen overflow-hidden bg-black/80 pointer-events-auto cursor-default"></div>
       )}
     </>
   );

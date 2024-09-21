@@ -1,13 +1,12 @@
 "use server";
 
-import api, { fetchWithInterceptor } from ".";
+import api from ".";
 import { Task } from "@/@types/task";
 import { cookies } from "next/headers";
 
 const createTask = async (task: Task) => {
   try {
     const token = cookies().get("token")?.value;
-
     const response = await fetch(api + "/task", {
       method: "POST",
       headers: {
@@ -26,13 +25,13 @@ const createTask = async (task: Task) => {
 
 const getTasks = async () => {
   try {
-    const response = await fetchWithInterceptor(
-      api + "/tasks",
-      { method: "GET" },
-      cookies().get("token")?.value
-    );
-    if (!response.ok) throw new Error("Failed to fetch tasks");
+    const token = cookies().get("token")?.value;
+    const response = await fetch(api + "/tasks", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
+    if (!response.ok) throw new Error("Failed to fetch tasks");
     return await response.json();
   } catch (e: any) {
     console.log(e);
@@ -59,7 +58,7 @@ const getTaskById = async (id: string) => {
 const updateTask = async (task: Task) => {
   try {
     const token = cookies().get("token")?.value;
-    const response = await fetch(api + `/task/${task.id}`, {
+    const response = await fetch(api + `/task/${task._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
