@@ -3,7 +3,7 @@ import { config } from "dotenv";
 import { UserJwtPayload } from "../@types/index.types";
 
 config();
-const jwt_secret = process.env.JWT_SECRET || "jwt_secret";
+const jwt_secret = process.env.JWT_SECRET || "";
 
 /**
  * Generate JWT token.
@@ -13,7 +13,7 @@ const jwt_secret = process.env.JWT_SECRET || "jwt_secret";
  */
 const generateToken = (
   payload: UserJwtPayload,
-  expiresIn: string = "1h"
+  expiresIn: string = "1y"
 ): string => {
   return jwt.sign(payload, jwt_secret, { expiresIn });
 };

@@ -9,6 +9,7 @@ interface TaskInitialState {
     order: "asc" | "desc";
   };
   current: Task | null;
+  kanbanView: "Status" | "Priority";
 }
 
 const initialState: TaskInitialState = {
@@ -16,6 +17,7 @@ const initialState: TaskInitialState = {
   filter: { status: "All", priority: "All", dueDate: null },
   sort: { key: "Any", order: "asc" },
   current: null,
+  kanbanView: "Status",
 };
 
 export const taskSlice = createSlice({
@@ -46,9 +48,19 @@ export const taskSlice = createSlice({
       state.current =
         state.tasks.find((task) => task._id === action.payload) || null;
     },
+    setKanbanView: (state, action) => {
+      state.kanbanView = action.payload;
+    },
   },
 });
 
-export const { addTask, removeTask, setTasks, setFilter, setSort } =
-  taskSlice.actions;
+export const {
+  addTask,
+  removeTask,
+  setTasks,
+  setFilter,
+  setSort,
+  setCurrent,
+  setKanbanView,
+} = taskSlice.actions;
 export default taskSlice.reducer;

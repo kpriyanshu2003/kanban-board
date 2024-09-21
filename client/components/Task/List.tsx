@@ -46,7 +46,7 @@ function List() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Table>
+    <Table className="">
       <TableHeader>
         <TableRow>
           <TableHead className="text-lg whitespace-nowrap w-2/6">
