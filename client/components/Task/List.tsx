@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,7 +14,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { toast } from "sonner";
 
 function List() {
   const [loading, setLoading] = useState(true);
@@ -89,7 +86,7 @@ function List() {
             }
             return 0;
           })
-          .sort((a, b) => {
+          .sort(() => {
             if (sort.order === "asc") return 1;
             if (sort.order === "desc") return -1;
             return 0;

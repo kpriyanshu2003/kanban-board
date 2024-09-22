@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, Suspense, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { login } from "@/actions/auth";
 
-function Page() {
+function Login() {
   const router = useRouter();
   const redirectParams = useSearchParams().get("redirect");
 
@@ -67,7 +67,6 @@ function Page() {
               }
             />
           </div>
-
           <div className="my-6">
             <div className="grid w-full max-w-sm gap-1.5 text-left my-4">
               <Label htmlFor="password">Password</Label>
@@ -115,4 +114,10 @@ function Page() {
   );
 }
 
-export default Page;
+export default function Page() {
+  return (
+    <Suspense>
+      <Login />
+    </Suspense>
+  );
+}

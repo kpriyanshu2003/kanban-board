@@ -59,7 +59,7 @@ function Editor() {
 
   const task = useSelector((state: RootState) => state.task.current);
   useEffect(() => {
-    task && task !== "create" && setFormData(task as Task);
+    if (task && task !== "create") setFormData(task as Task);
   }, [task]);
 
   const handleSubmit = () => {
