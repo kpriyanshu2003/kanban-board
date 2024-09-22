@@ -2,6 +2,7 @@
 
 import api from ".";
 import { Task } from "@/@types/task";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 const createTask = async (task: Task) => {
@@ -16,6 +17,7 @@ const createTask = async (task: Task) => {
       body: JSON.stringify(task),
     });
     if (!response.ok) throw new Error("Failed to create task");
+    revalidateTag("tasks");
     return await response.json();
   } catch (e: any) {
     console.log(e);
@@ -29,6 +31,7 @@ const getTasks = async () => {
     const response = await fetch(api + "/tasks", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
+      next: { tags: ["tasks"] },
     });
 
     if (!response.ok) throw new Error("Failed to fetch tasks");
@@ -67,6 +70,7 @@ const updateTask = async (task: Task) => {
       body: JSON.stringify(task),
     });
     if (!response.ok) throw new Error("Failed to update task");
+    revalidateTag("tasks");
     return await response.json();
   } catch (e: any) {
     console.log(e);
@@ -84,6 +88,7 @@ const deleteTask = async (id: string) => {
       },
     });
     if (!response.ok) throw new Error("Failed to delete task");
+    revalidateTag("tasks");
     return await response.json();
   } catch (e: any) {
     console.log(e);

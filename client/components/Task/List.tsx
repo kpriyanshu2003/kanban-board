@@ -46,13 +46,13 @@ function List() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Table className="w-full">
+    <Table className="md:w-full">
       <TableHeader>
         <TableRow>
-          <TableHead className="text-lg whitespace-nowrap w-2/6">
+          <TableHead className="text-lg whitespace-nowrap md:w-2/6">
             Title
           </TableHead>
-          <TableHead className="text-lg whitespace-nowrap w-3/6">
+          <TableHead className="text-lg whitespace-nowrap md:w-3/6">
             Description
           </TableHead>
           <TableHead className="text-lg whitespace-nowrap w-1/6">

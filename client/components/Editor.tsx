@@ -116,7 +116,7 @@ function Editor() {
   return (
     <>
       {task && (
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg w-[600px] p-6 bg-white">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-lg w-[90vw] md:w-[600px] p-6 bg-white">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-bold">
               {task === "create" ? "Create" : "Update"} Task

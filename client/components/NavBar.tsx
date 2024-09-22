@@ -15,6 +15,7 @@ import { toggleSidebar } from "../redux/features/sidebar/sidebarSlice";
 import { MdCreate } from "react-icons/md";
 import { Button } from "./ui/button";
 import { setCurrent } from "@/redux/features/task/taskSlice";
+import { IoMenu } from "react-icons/io5";
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -26,16 +27,22 @@ function NavBar() {
     >
       <div
         className={cn(
-          "h-screen fixed border-r transition-all duration-500 bg-white",
-          collapsed ? "w-16 " : "w-64"
+          "h-screen fixed border-r transition-all duration-500 bg-white z-40",
+          collapsed ? "hidden md:block w-0 md:w-16 " : "w-full md:w-64"
         )}
       >
-        <Link
-          href="/kanban"
-          className="block p-3 cursor-pointer py-5 font-semibold text-2xl text-center"
-        >
-          {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
-        </Link>
+        <div className="flex items-center justify-between px-4">
+          <Link
+            href="/kanban"
+            className="block p-3 cursor-pointer py-5 font-semibold text-2xl text-center"
+          >
+            {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
+          </Link>
+          <IoMenu
+            className="w-6 h-6"
+            onClick={() => dispatch(toggleSidebar())}
+          />
+        </div>
         <div className="mt-5 grid place-items-center">
           {NavItems.map((item) => (
             <Link
@@ -52,7 +59,10 @@ function NavBar() {
             <Button
               className="hover:bg-slate-100 p-4 transition-all duration-500 text-sm font-medium gap-2 flex items-center w-full"
               variant="secondary"
-              onClick={() => dispatch(setCurrent("create"))}
+              onClick={() => {
+                dispatch(setCurrent("create"));
+                dispatch(toggleSidebar());
+              }}
             >
               <MdCreate />
               {!collapsed && <span>Create Task</span>}
@@ -78,7 +88,7 @@ function NavBar() {
           <div
             onClick={() => dispatch(toggleSidebar())}
             className={cn(
-              "cursor-pointer p-4 hover:bg-slate-100 duration-500 grid place-items-center",
+              "hidden cursor-pointer p-4 hover:bg-slate-100 duration-500 md:grid place-items-center",
               collapsed && " w-full"
             )}
           >

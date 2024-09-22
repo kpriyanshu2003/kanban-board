@@ -19,7 +19,7 @@ function Page({ params }: { params: { id: string } }) {
     <div className="flex bg-gray-50 h-screen overflow-hidden">
       {showNavBar && <NavBar />}
       <Overlay />
-      <div className="px-10 py-8 w-full">{renderPage()}</div>
+      <div className="px-5 md:px-10 py-8 w-full">{renderPage()}</div>
       <Editor />
     </div>
   );
