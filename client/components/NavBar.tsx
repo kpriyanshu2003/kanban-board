@@ -27,7 +27,7 @@ function NavBar() {
     >
       <div
         className={cn(
-          "h-screen fixed border-r transition-all duration-500 bg-white z-40",
+          "h-screen fixed border-r transition-all duration-500 bg-white z-30",
           collapsed ? "hidden md:block w-0 md:w-16 " : "w-full md:w-64"
         )}
       >
@@ -39,7 +39,7 @@ function NavBar() {
             {collapsed ? <span>Kb</span> : <span>Logo. Kanban</span>}
           </Link>
           <IoMenu
-            className="w-6 h-6"
+            className="w-6 h-6 md:hidden"
             onClick={() => dispatch(toggleSidebar())}
           />
         </div>
@@ -61,7 +61,7 @@ function NavBar() {
               variant="secondary"
               onClick={() => {
                 dispatch(setCurrent("create"));
-                dispatch(toggleSidebar());
+                if (!collapsed) dispatch(toggleSidebar());
               }}
             >
               <MdCreate />

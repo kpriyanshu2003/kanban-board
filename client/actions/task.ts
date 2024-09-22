@@ -2,13 +2,15 @@
 
 import api from ".";
 import { Task } from "@/@types/task";
+import { validateTask } from "@/util/validations";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
 const createTask = async (task: Task) => {
   try {
+    validateTask(task);
     const token = cookies().get("token")?.value;
-    const response = await fetch(api + "/task", {
+    const response = await fetch(api + "/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,6 +19,7 @@ const createTask = async (task: Task) => {
       body: JSON.stringify(task),
     });
     if (!response.ok) throw new Error("Failed to create task");
+
     revalidateTag("tasks");
     return await response.json();
   } catch (e: any) {
@@ -45,7 +48,7 @@ const getTasks = async () => {
 const getTaskById = async (id: string) => {
   try {
     const token = cookies().get("token")?.value;
-    const response = await fetch(api + `/task/${id}`, {
+    const response = await fetch(api + `/tasks/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -60,8 +63,9 @@ const getTaskById = async (id: string) => {
 
 const updateTask = async (task: Task) => {
   try {
+    validateTask(task);
     const token = cookies().get("token")?.value;
-    const response = await fetch(api + `/task/${task._id}`, {
+    const response = await fetch(api + `/tasks/${task._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +85,7 @@ const updateTask = async (task: Task) => {
 const deleteTask = async (id: string) => {
   try {
     const token = cookies().get("token")?.value;
-    const response = await fetch(api + `/task/${id}`, {
+    const response = await fetch(api + `/tasks/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
